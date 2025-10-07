@@ -1,0 +1,20 @@
+{
+  "name": "Dashboard Creator",
+  "id": "dashboard-creator-plugin",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma"],
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  },
+  "permissions": ["currentuser"],
+  "menu": [
+    {
+      "name": "Dashboard Creator",
+      "command": "open-plugin"
+    }
+  ]
+}

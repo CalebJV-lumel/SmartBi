@@ -1,0 +1,472 @@
+/**
+ * Main Application Styles - Professional Dashboard Creator
+ * Enterprise-grade CSS with modern design patterns
+ */
+
+/* ============================================================================
+   GLOBAL STYLES
+   ============================================================================ */
+
+.main-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* ============================================================================
+   HEADER STYLES
+   ============================================================================ */
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-message {
+  font-size: 14px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+}
+
+.loading-indicator {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================================
+   MAIN CONTENT LAYOUT
+   ============================================================================ */
+
+.app-content {
+  display: flex;
+  flex: 1;
+  gap: 1px;
+  background: #e2e8f0;
+}
+
+.left-panel,
+.center-panel,
+.right-panel {
+  background: white;
+  overflow-y: auto;
+}
+
+.left-panel {
+  width: 280px;
+  min-width: 280px;
+}
+
+.center-panel {
+  flex: 1;
+  min-width: 400px;
+}
+
+.right-panel {
+  width: 320px;
+  min-width: 320px;
+}
+
+/* ============================================================================
+   VISUAL LIBRARY STYLES
+   ============================================================================ */
+
+.visual-library {
+  padding: 20px;
+}
+
+.visual-library h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.visual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.visual-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 8px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fafafa;
+}
+
+.visual-card:hover {
+  border-color: #3b82f6;
+  background: #f0f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.visual-card.selected {
+  border-color: #3b82f6;
+  background: #dbeafe;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.visual-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.visual-name {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.visual-category {
+  font-size: 10px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* ============================================================================
+   VISUAL MANAGER STYLES
+   ============================================================================ */
+
+.visual-manager {
+  padding: 20px;
+}
+
+.visual-manager h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.visual-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.visual-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fafafa;
+}
+
+.visual-item:hover {
+  border-color: #3b82f6;
+  background: #f0f9ff;
+}
+
+.visual-item.selected {
+  border-color: #3b82f6;
+  background: #dbeafe;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.visual-info {
+  flex: 1;
+}
+
+.visual-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.visual-type {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  color: #374151;
+}
+
+.visual-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.visual-details {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.visual-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.action-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  background: #f3f4f6;
+}
+
+.action-btn:hover {
+  background: #e5e7eb;
+  transform: scale(1.1);
+}
+
+.action-btn.visible {
+  background: #dcfce7;
+}
+
+.action-btn.hidden {
+  background: #fef2f2;
+}
+
+.action-btn.locked {
+  background: #fef3c7;
+}
+
+.action-btn.unlocked {
+  background: #f0fdf4;
+}
+
+.action-btn.duplicate {
+  background: #e0f2fe;
+}
+
+.action-btn.delete {
+  background: #fef2f2;
+}
+
+.action-btn.delete:hover {
+  background: #fee2e2;
+}
+
+/* ============================================================================
+   PROPERTY EDITOR STYLES
+   ============================================================================ */
+
+.property-editor {
+  padding: 20px;
+}
+
+.property-editor h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.no-selection {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.no-selection p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.property-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.property-group {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fafafa;
+}
+
+.property-group h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.property-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.property-field:last-child {
+  margin-bottom: 0;
+}
+
+.property-row {
+  display: flex;
+  gap: 12px;
+}
+
+.property-row .property-field {
+  flex: 1;
+}
+
+.property-field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.property-field input[type="text"],
+.property-field input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.property-field input[type="text"]:focus,
+.property-field input[type="number"]:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.property-field input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6;
+}
+
+/* ============================================================================
+   FOOTER STYLES
+   ============================================================================ */
+
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stats {
+  display: flex;
+  gap: 24px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.refresh-btn {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #374151;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.refresh-btn:hover {
+  border-color: #3b82f6;
+  background: #f0f9ff;
+  color: #3b82f6;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+  .app-content {
+    flex-direction: column;
+  }
+  
+  .left-panel,
+  .right-panel {
+    width: 100%;
+  }
+  
+  .center-panel {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 12px 16px;
+  }
+  
+  .app-header h1 {
+    font-size: 20px;
+  }
+  
+  .visual-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  
+  .visual-card {
+    padding: 12px 6px;
+  }
+  
+  .visual-icon {
+    font-size: 24px;
+  }
+}

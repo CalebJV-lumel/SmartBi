@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM", "DOM.Iterable"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "declaration": false,
+    "outDir": "./dist",
+    "typeRoots": ["./node_modules/@types", "./types"]
+  },
+  "include": [
+    "src/ui/**/*",
+    "src/plugin/**/*",
+    "src/components/**/*"
+  ],
+  "exclude": [
+    "node_modules", 
+    "dist",
+    "src/main.ts",
+    "src/main-simple.ts",
+    "src/lib",
+    "src/api",
+    "src/components/VisualLibrary.tsx",
+    "src/components/PropertyEditor.tsx", 
+    "src/components/ExportPanel.tsx",
+    "src/components/OnboardingModal.tsx",
+    "src/components/DataBinding.tsx",
+    "src/tests"
+  ]
+}
