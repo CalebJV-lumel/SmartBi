@@ -7,8 +7,15 @@ module.exports = (env, argv) => ({
   devtool: argv.mode === 'production' ? false : 'inline-source-map',
 
   entry: {
-    ui: './src/ui/ui.tsx', // Main React app entry point
-    code: './src/plugin/controller.ts', // Main plugin entry point
+    ui: './src/app/index.tsx',
+    code: './src/plugin/index.ts',
+  },
+
+  watch: argv.mode === 'development',
+  watchOptions: {
+    aggregateTimeout: 200,
+    poll: 1000,
+    ignored: /node_modules/,
   },
 
   module: {
@@ -30,7 +37,8 @@ module.exports = (env, argv) => ({
               insert: 'head',
             },
           },
-          'css-loader'
+          'css-loader',
+          'postcss-loader'
         ],
       },
       // SASS loader
@@ -48,12 +56,12 @@ module.exports = (env, argv) => ({
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true,
+    clean: argv.mode === 'production',
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/ui/ui.html',
+      template: './src/app/ui.html',
       filename: 'ui.html',
       chunks: ['ui'],
       inject: 'body',

@@ -1,40 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["ES2017", "DOM", "DOM.Iterable"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
     "module": "ESNext",
     "moduleResolution": "node",
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
-    "jsx": "react-jsx",
-    "declaration": false,
-    "outDir": "./dist",
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "baseUrl": ".",
+    "paths": {
+      "@plugin/*": ["src/plugin/*"],
+      "@app/*": ["src/app/*"],
+      "@shared/*": ["src/shared/*"]
+    },
+    "types": ["@figma/plugin-typings", "node"]
   },
-  "include": [
-    "src/ui/**/*",
-    "src/plugin/**/*",
-    "src/components/**/*"
-  ],
-  "exclude": [
-    "node_modules", 
-    "dist",
-    "src/main.ts",
-    "src/main-simple.ts",
-    "src/lib",
-    "src/api",
-    "src/components/VisualLibrary.tsx",
-    "src/components/PropertyEditor.tsx", 
-    "src/components/ExportPanel.tsx",
-    "src/components/OnboardingModal.tsx",
-    "src/components/DataBinding.tsx",
-    "src/tests"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

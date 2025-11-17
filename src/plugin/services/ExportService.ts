@@ -1,16 +1,12 @@
-import { PluginUtils } from '../utils';
+/// <reference types="@figma/plugin-typings" />
 
-/**
- * Service for handling export operations
- */
+import { EExportFormat } from '../../shared/types/messages';
+
 export class ExportService {
   private static instance: ExportService;
 
   private constructor() {}
 
-  /**
-   * Get singleton instance
-   */
   static getInstance(): ExportService {
     if (!ExportService.instance) {
       ExportService.instance = new ExportService();
@@ -18,165 +14,26 @@ export class ExportService {
     return ExportService.instance;
   }
 
-  /**
-   * Export dashboard in specified format
-   */
-  async exportDashboard(format: string): Promise<{ success: boolean; message: string; data?: Uint8Array | string | Record<string, unknown> }> {
-    try {
-      PluginUtils.log('info', `Exporting dashboard as ${format}`);
+  async exportNode(nodeId: string, format: EExportFormat): Promise<Uint8Array> {
+    const node = figma.getNodeById(nodeId) as SceneNode | null;
+    if (!node) throw new Error('Node not found');
 
-      const selection = figma.currentPage.selection;
-      
-      if (selection.length === 0) {
-        return {
-          success: false,
-          message: 'No elements selected for export'
-        };
-      }
-
-      switch (format.toLowerCase()) {
-        case 'png':
-          return await this.exportAsPNG(selection);
-        case 'pdf':
-          return await this.exportAsPDF(selection);
-        case 'svg':
-          return await this.exportAsSVG(selection);
-        case 'json':
-          return await this.exportAsJSON(selection);
-        default:
-          return {
-            success: false,
-            message: `Unsupported export format: ${format}`
-          };
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Export failed';
-      PluginUtils.log('error', 'Export operation failed', { error: errorMessage });
-      
-      return {
-        success: false,
-        message: errorMessage
-      };
-    }
-  }
-
-  /**
-   * Export as PNG
-   */
-  private async exportAsPNG(nodes: readonly SceneNode[]): Promise<{ success: boolean; message: string; data?: Uint8Array }> {
-    try {
-      const exportSettings: ExportSettings = {
-        format: 'PNG',
-        constraint: { type: 'SCALE', value: 2 }
-      };
-
-      const results = await Promise.all(
-        nodes.map(async (node) => {
-          const bytes = await node.exportAsync(exportSettings);
-          return {
-            name: node.name,
-            bytes: bytes,
-            format: 'PNG'
-          };
-        })
-      );
-
-      return {
-        success: true,
-        message: `Exported ${results.length} elements as PNG`,
-        data: results[0]?.bytes || new Uint8Array()
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: 'PNG export failed'
-      };
-    }
-  }
-
-  /**
-   * Export as PDF (placeholder - requires additional implementation)
-   */
-  private async exportAsPDF(nodes: readonly SceneNode[]): Promise<{ success: boolean; message: string }> {
-    // PDF export would require additional libraries or services
-    return {
-      success: false,
-      message: 'PDF export not yet implemented'
+    const settings: ExportSettings = {
+      format: format as ExportSettingsImage['format'],
+      constraint: { type: 'SCALE', value: 2 }
     };
+
+    return await node.exportAsync(settings);
   }
 
-  /**
-   * Export as SVG
-   */
-  private async exportAsSVG(nodes: readonly SceneNode[]): Promise<{ success: boolean; message: string; data?: string }> {
-    try {
-      const exportSettings: ExportSettings = {
-        format: 'SVG'
-      };
+  async exportSelection(format: EExportFormat): Promise<Uint8Array[]> {
+    const selection = figma.currentPage.selection;
+    if (selection.length === 0) throw new Error('No selection');
 
-      const results = await Promise.all(
-        nodes.map(async (node) => {
-          const svg = await node.exportAsync(exportSettings);
-          return {
-            name: node.name,
-            svg: svg,
-            format: 'SVG'
-          };
-        })
-      );
+    const exports = await Promise.all(
+      selection.map(node => this.exportNode(node.id, format))
+    );
 
-      return {
-        success: true,
-        message: `Exported ${results.length} elements as SVG`,
-        data: new TextDecoder().decode(results[0]?.svg) || ''
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: 'SVG export failed'
-      };
-    }
-  }
-
-  /**
-   * Export as JSON (metadata and configuration)
-   */
-  private async exportAsJSON(nodes: readonly SceneNode[]): Promise<{ success: boolean; message: string; data?: Record<string, unknown> }> {
-    try {
-      const results = nodes.map((node) => {
-        const metadata = PluginUtils.getMetadata(node);
-        return {
-          id: node.id,
-          name: node.name,
-          type: node.type,
-          x: node.x,
-          y: node.y,
-          width: node.width,
-          height: node.height,
-          metadata: metadata,
-          pluginData: {
-            visualType: metadata.visualType,
-            createdAt: metadata.createdAt,
-            version: metadata.version,
-            config: metadata.config
-          }
-        };
-      });
-
-      return {
-        success: true,
-        message: `Exported ${results.length} elements as JSON`,
-        data: {
-          exportedAt: new Date().toISOString(),
-          elements: results,
-          version: '1.0.0'
-        }
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: 'JSON export failed'
-      };
-    }
+    return exports;
   }
 }
